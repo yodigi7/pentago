@@ -118,10 +118,10 @@ func TestPlaceMarble(t *testing.T) {
 	}
 }
 
-func TestRotateQuadrantSwitchesTurns(t *testing.T) {
+func TestSwitchTurns(t *testing.T) {
 	game := NewGame()
 	firstPlayer := game.Turn
-	game.RotateQuadrant(TopLeft, Clockwise)
+	game.SwitchTurn()
 	if game.Turn == firstPlayer {
 		t.Errorf("Expected turn to change")
 	}

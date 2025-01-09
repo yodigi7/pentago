@@ -83,7 +83,7 @@ func (g *Game) PlaceMarble(row, col int) error {
 	return nil
 }
 
-func (g *Game) switchTurn() {
+func (g *Game) SwitchTurn() {
 	if g.Turn == White {
 		g.Turn = Black
 	} else {
@@ -139,8 +139,6 @@ func (g *Game) RotateQuadrant(quadrant Quadrant, direction RotationDirection) er
 		}
 	}
 
-	g.CheckForWinner()
-	g.switchTurn()
 	return nil
 }
 
