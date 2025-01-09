@@ -14,7 +14,21 @@ func NewGame() *Game {
 	}
 }
 
-func (g *Game) checkForWinner() Space {
+func (g *Game) IsDraw() bool {
+	if g.CheckForWinner() != Empty {
+		return false
+	}
+	for _, row := range g.Board {
+		for _, val := range row {
+			if val == Empty {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func (g *Game) CheckForWinner() Space {
 	// Check horizontal and vertical lines
 	for i := 0; i < 6; i++ {
 		for j := 0; j < 2; j++ { // Only check up to the 2nd-to-last row and column
@@ -125,7 +139,7 @@ func (g *Game) RotateQuadrant(quadrant Quadrant, direction RotationDirection) er
 		}
 	}
 
-	g.checkForWinner()
+	g.CheckForWinner()
 	g.switchTurn()
 	return nil
 }

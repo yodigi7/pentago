@@ -5,6 +5,43 @@ import (
 	"testing"
 )
 
+func TestIsDraw(t *testing.T) {
+	game := NewGame()
+	game.Board = [6][6]Space{
+		{White, Black, White, Black, White, Black},
+		{Black, White, Black, White, Black, White},
+		{White, White, White, White, Black, White},
+		{Black, White, Black, Black, White, Black},
+		{Black, Black, White, Black, White, Black},
+		{Black, White, Black, White, Black, White},
+	}
+	if !game.IsDraw() {
+		t.Error("Expected game to be draw but it wasn't")
+	}
+	game.Board = [6][6]Space{
+		{White, Black, White, Black, White, Black},
+		{Empty, White, Black, White, Black, White},
+		{White, White, White, White, Black, White},
+		{Black, White, Black, Black, White, Black},
+		{Black, Black, White, Black, White, Black},
+		{Black, White, Black, White, Black, White},
+	}
+	if game.IsDraw() {
+		t.Error("Expected game to be not a draw but it wasn't")
+	}
+	game.Board = [6][6]Space{
+		{White, Black, White, Black, White, Black},
+		{Black, White, Black, White, Black, White},
+		{Black, White, White, White, Black, White},
+		{Black, White, Black, Black, White, Black},
+		{Black, Black, White, Black, White, Black},
+		{Black, White, Black, White, Black, White},
+	}
+	if game.IsDraw() {
+		t.Error("Expected game to be not a draw but it wasn't")
+	}
+}
+
 func TestRotateClockwise(t *testing.T) {
 	grid := [3][3]Space{
 		{1, 2, 3},
@@ -102,7 +139,7 @@ func TestCheckForWinner(t *testing.T) {
 			{Black, 0, 0, 0, 0, 0},
 		},
 	}
-	winner := game.checkForWinner()
+	winner := game.CheckForWinner()
 	if winner != Black {
 		t.Errorf("Expected Black to win")
 	}
@@ -117,7 +154,7 @@ func TestCheckForWinner(t *testing.T) {
 			{0, 0, 0, 0, 0, 0},
 		},
 	}
-	winner = game.checkForWinner()
+	winner = game.CheckForWinner()
 	if winner != Black {
 		t.Errorf("Expected Black to win")
 	}
@@ -132,7 +169,7 @@ func TestCheckForWinner(t *testing.T) {
 			{0, 0, 0, 0, 0, White},
 		},
 	}
-	winner = game.checkForWinner()
+	winner = game.CheckForWinner()
 	if winner != White {
 		t.Errorf("Expected White to win")
 	}
@@ -147,7 +184,7 @@ func TestCheckForWinner(t *testing.T) {
 			{0, 0, 0, 0, 0, White},
 		},
 	}
-	winner = game.checkForWinner()
+	winner = game.CheckForWinner()
 	if winner != Empty {
 		t.Errorf("Expected no one to win")
 	}
